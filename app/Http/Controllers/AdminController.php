@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Leave;
-use App\Models\Appearance;
+use App\Models\Attendance;
+use App\Models\Form;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -15,9 +16,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $totalLeave = Leave::count();
-        $totalAppearance = Appearance::count();
-        return view('admin.dashboard',compact('totalLeave','totalAppearance'));
+        $totalUser = User::count();
+        $totalForm = Form::count();
+        $totalAttended = Attendance::count();
+        return view('admin.dashboard',compact('totalUser','totalForm', 'totalAttended'));
     }
 
 }

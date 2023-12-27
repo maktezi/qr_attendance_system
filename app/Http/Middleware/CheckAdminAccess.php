@@ -18,7 +18,7 @@ class CheckAdminAccess
     {
         $user = $request->user();
 
-        if ($user && $user->isAdmin()) {
+        if ($user && $user->role()) {
             return $next($request); // Admins can access all pages.
         }
 

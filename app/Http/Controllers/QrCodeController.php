@@ -2,41 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Form;
+use App\Models\Attendance;
+use RealRashid\SweetAlert\Facades\Alert;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeController extends Controller
 {
 
-    public function show()
+    public function scanqr()
     {
-        return QrCode::size(300)
-            ->style('dot')
-            ->eye('circle')
-            // ->margin(1)
-            ->generate('DATA HERE',);
+        return view('scanqr');
     }
 
-    // public function show($userId)
-    // {
-    //     // Retrieve the user data from the database
-    //     $user = User::find($userId);
+    public function showQR($id)
+    {
+        $formData = Form::find($id);
 
-    //     // Check if the user exists
-    //     if (!$user) {
-    //         abort(404); // Or handle the case where the user doesn't exist
-    //     }
+        if ($formData) {
+            $qrData = $formData->id;
 
-    //     // Generate a QR code using the user's data
-    //     $qrcode = QrCode::size(300)
-    //         ->style('dot')
-    //         ->eye('circle')
-    //         // ->margin(1)
-    //         ->generate(json_encode($user)); // Encode user data as JSON
-
-    //     // Return the QR code image
-    //     return response($qrcode)->header('Content-Type', 'image/png');
-    // }
+            return view('admin.form.showQR', compact('qrData'));
+        } else {
+            return "No data available for QR code generation.";
+        }
+    }
 
 }
